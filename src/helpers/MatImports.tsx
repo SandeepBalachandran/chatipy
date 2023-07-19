@@ -13,6 +13,8 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
+import Snackbar from '@mui/material/Snackbar';
+
 export {
   TextField,
   Tabs,
@@ -26,5 +28,6 @@ export {
   InputLabel,
   MenuItem,
   FormControl,
-  Select
+  Select,
+  Snackbar
 };

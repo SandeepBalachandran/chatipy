@@ -1,4 +1,3 @@
-
 import { create } from 'zustand';
 import { createJSONStorage, persist } from 'zustand/middleware';
 
@@ -9,10 +8,10 @@ export type State = {
 };
 
 export type Actions = {
-  changeModel: (model: string) => void; 
+  changeModel: (model: string) => void;
   modifyToken: (token: string) => void;
   removeToken: () => void;
-  reset: () => void; 
+  reset: () => void;
 };
 
 // define the initial state
@@ -21,22 +20,23 @@ const initialState: State = {
   selectedModel: '',
 };
 
-const useStore = create<State & Actions>();
-persist(
-  (set, get) => ({
-    token: '',
-    selectedModel: '',
-    changeModel: (model: string) => set({ selectedModel: model }), 
-    modifyToken: (token: string) => set({ token }),
-    removeToken: () => set({ token: '' }),
-    reset: () => {
-      set(initialState);
+const useStore = create<any>(
+  persist(
+    (set, get) => ({
+      token: '',
+      selectedModel: '',
+      changeModel: (model: string) => set({ selectedModel: model }),
+      modifyToken: (token: string) => set({ token }),
+      removeToken: () => set({ token: '' }),
+      reset: () => {
+        set(initialState);
+      },
+    }),
+    {
+      name: 'chatipy', // unique key name
+      storage: createJSONStorage(() => localStorage), // (optional) by default, 'localStorage' is used
     },
-  }),
-  {
-    name: 'chatipy', // unique key name
-    storage: createJSONStorage(() => localStorage), // (optional) by default, 'localStorage' is used
-  },
+  ),
 );
 
 export default useStore;

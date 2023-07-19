@@ -1,5 +1,3 @@
-
-
 import React from 'react';
 import {
   AppBar,
@@ -16,10 +14,15 @@ import { SelectChangeEvent } from '@mui/material/Select';
 import useStore from '../../store/store';
 
 export default function ButtonAppBar({ title }: { title: string }) {
-  const selectedModel = useStore((state:any) => state.selectedModel)
-  const [model, setModel] = React.useState<string>('');
+  const selectedModel = useStore((state: any) => state.selectedModel);
+  const [model, setModel] = React.useState<string>(
+    selectedModel ? selectedModel : '',
+  );
+  const changeModel = useStore((state: any) => state.changeModel);
+
   const handleChange = (event: SelectChangeEvent) => {
     setModel(event.target.value);
+    changeModel(event.target.value);
   };
   return (
     <Box sx={{ flexGrow: 1 }}>
@@ -56,9 +59,3 @@ export default function ButtonAppBar({ title }: { title: string }) {
     </Box>
   );
 }
-
-
-
-
-
-

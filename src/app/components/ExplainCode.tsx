@@ -1,16 +1,15 @@
-
 import React from 'react';
 import { Configuration, OpenAIApi } from 'openai';
 import { Button, TextField } from '../../helpers/MatImports';
 import { v4 as uuidv4 } from 'uuid';
-
-
+import useStore from '../../store/store';
 
 type Props = {};
 
 const ExplainCode = (props: Props) => {
+  const currentToken = useStore((state: any) => state.token);
   const configuration = new Configuration({
-    apiKey: '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',
+    apiKey: currentToken ? currentToken : '',
   });
   const openai = new OpenAIApi(configuration);
   const [prompt, setPrompt] = React.useState('');
@@ -35,10 +34,10 @@ const ExplainCode = (props: Props) => {
         max_tokens: 4000,
       });
       console.log('response', result.data.choices[0].message.content);
-      //
-      result.data.choices[0].message.content;
-      setApiResponse(result.data.choices[0].message.content.split('.').filter(Boolean));
-      console.log(apiResponse)
+      setApiResponse(
+        result.data.choices[0].message.content.split('.').filter(Boolean),
+      );
+      console.log(apiResponse);
     } catch (e) {
       console.log(e);
       setApiResponse(['Something is going wrong, Please try again.']);
@@ -75,9 +74,11 @@ const ExplainCode = (props: Props) => {
           {Boolean(apiResponse.length) && (
             <div className="flex justify-center p-4 m-2 mt-5 overflow-auto border-2 rounded-md max-h-96">
               <React.Fragment>
-                <ul className='list-disc'>
+                <ul className="list-disc">
                   {apiResponse.map((ele, index) => (
-                    <li key={uuidv4()} className='p-2'>{ele}</li>
+                    <li key={uuidv4()} className="p-2">
+                      {ele}
+                    </li>
                   ))}
                 </ul>
               </React.Fragment>

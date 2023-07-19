@@ -1,20 +1,18 @@
-
-
 import React from 'react';
 import Header from './Header';
-import { Button, TextField } from '../../helpers/MatImports';
+import { Button, Snackbar, TextField } from '../../helpers/MatImports';
 import useStore from '../../store/store';
 
-const Home = () => {
-  // const currentToken = useStore((state: any) => state.token);
-  const [token, setToken] = React.useState<any>();
-  // const modifyTokenn = useStore((state: any) => state.modifyToken);
 
-
-  const setNewToken = () => {
-    modifyTokenn(token); // Update the store with the new token value
+const Home: React.FC = () => {
+  const currentToken = useStore((state: any) => state.token);
+  const [token, setToken] = React.useState<string>(
+    currentToken ? currentToken : '',
+  );
+  const modifyToken = useStore((state: any) => state.modifyToken);
+  const handleButtonClick = () => {
+    modifyToken(token); // Update the store with the new token value
   };
-
   return (
     <React.Fragment>
       <Header title="Home" />
@@ -31,12 +29,19 @@ const Home = () => {
             />
           </div>
           <div>
-            <Button variant="contained" onClick={() => setNewToken()}>
+            <Button variant="contained" onClick={handleButtonClick}>
               Ready
             </Button>
           </div>
         </div>
       </div>
+      <Snackbar
+        open={open}
+        autoHideDuration={6000}
+        onClose={handleClose}
+        message="Note archived"
+        action={action}
+      />
     </React.Fragment>
   );
 };
