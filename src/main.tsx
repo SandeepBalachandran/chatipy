@@ -1,11 +1,10 @@
-import React from 'react';
+
 import ReactDOM from 'react-dom';
-import App from './App.tsx';
-// import "./assets/style/colors.scss";
 import './index.scss';
-import store from './app/store';
-import { Provider } from 'react-redux';
 import Routes from './core/Routes.tsx';
+
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { zhCN } from '@mui/material/locale';
 
 const routes = Routes();
 
@@ -20,7 +19,21 @@ const routes = Routes();
 //   </Provider>,
 // );
 
+// ReactDOM.render(
+//   routes,
+//   document.getElementById('root')
+// );
+
+const theme = createTheme(
+  {
+    palette: {
+      primary: { main: '#1976d2' },
+    },
+  },
+  zhCN,
+);
+
 ReactDOM.render(
-  routes,
-  document.getElementById('root')
+  <ThemeProvider theme={theme}>{routes}</ThemeProvider>,
+  document.getElementById('root'),
 );

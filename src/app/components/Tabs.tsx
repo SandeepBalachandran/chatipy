@@ -1,8 +1,10 @@
+
+
+
 import * as React from 'react';
-import Tabs from '@mui/material/Tabs';
-import Tab from '@mui/material/Tab';
-import Typography from '@mui/material/Typography';
-import Box from '@mui/material/Box';
+import ExplainCode from './ExplainCode';
+import { Box, Tab, Tabs, Typography } from '../../helpers/MatImports';
+
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -48,13 +50,13 @@ export default function BasicTabs() {
     <Box sx={{ width: '100%' }}>
       <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
         <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
-          <Tab label="Item One" {...a11yProps(0)} />
-          <Tab label="Item Two" {...a11yProps(1)} />
-          <Tab label="Item Three" {...a11yProps(2)} />
+          <Tab label="Explain Code" {...a11yProps(0)} className="custom-tab" />
+          <Tab label="Item Two" {...a11yProps(1)} className="custom-tab"/>
+          <Tab label="Item Three" {...a11yProps(2)}className="custom-tab" />
         </Tabs>
       </Box>
       <CustomTabPanel value={value} index={0}>
-        Item One
+       <ExplainCode/>
       </CustomTabPanel>
       <CustomTabPanel value={value} index={1}>
         Item Two
