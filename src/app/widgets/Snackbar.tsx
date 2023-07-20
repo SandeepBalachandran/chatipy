@@ -1,22 +1,30 @@
+
 import * as React from 'react';
-import Button from '@mui/material/Button';
-import Snackbar from '@mui/material/Snackbar';
-import IconButton from '@mui/material/IconButton';
-import CloseIcon from '@mui/icons-material/Close';
+import {
+  Button,
+  CloseIcon,
+  IconButton,
+  Snackbar,
+} from '../../helpers/MatImports';
 
-export default function SimpleSnackbar() {
-  const [open, setOpen] = React.useState(false);
-
-  const handleClick = () => {
-    setOpen(true);
-  };
-
-  const handleClose = (event: React.SyntheticEvent | Event, reason?: string) => {
+type props = {
+  snackBarStatus: boolean;
+  onSnackBarClose: (
+    event: React.SyntheticEvent | Event,
+    reason?: string,
+  ) => void;
+  hideDuration: number;
+  message: string;
+};
+export default function SimpleSnackbar(props: props) {
+  const handleClose = (
+    event: React.SyntheticEvent | Event,
+    reason?: string,
+  ) => {
     if (reason === 'clickaway') {
       return;
     }
-
-    setOpen(false);
+    props.onSnackBarClose(event, reason);
   };
 
   const action = (
@@ -37,14 +45,16 @@ export default function SimpleSnackbar() {
 
   return (
     <div>
-      <Button onClick={handleClick}>Open simple snackbar</Button>
       <Snackbar
-        open={open}
-        autoHideDuration={6000}
+        open={props.snackBarStatus}
+        autoHideDuration={props.hideDuration}
         onClose={handleClose}
-        message="Note archived"
+        message={props.message}
         action={action}
       />
     </div>
   );
 }
+
+
+

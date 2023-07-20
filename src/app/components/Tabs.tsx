@@ -1,10 +1,9 @@
 
 
-
 import * as React from 'react';
 import ExplainCode from './ExplainCode';
+import MoodToColor from './MoodToColor';
 import { Box, Tab, Tabs, Typography } from '../../helpers/MatImports';
-
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -25,7 +24,7 @@ function CustomTabPanel(props: TabPanelProps) {
     >
       {value === index && (
         <Box sx={{ p: 3 }}>
-          <Typography>{children}</Typography>
+          <Typography component={'span'}>{children}</Typography>
         </Box>
       )}
     </div>
@@ -49,17 +48,21 @@ export default function BasicTabs() {
   return (
     <Box sx={{ width: '100%' }}>
       <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-        <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
+        <Tabs
+          value={value}
+          onChange={handleChange}
+          aria-label="basic tabs example"
+        >
           <Tab label="Explain Code" {...a11yProps(0)} className="custom-tab" />
-          <Tab label="Item Two" {...a11yProps(1)} className="custom-tab"/>
-          <Tab label="Item Three" {...a11yProps(2)}className="custom-tab" />
+          <Tab label="Mood to color" {...a11yProps(1)} className="custom-tab" />
+          <Tab label="Item Three" {...a11yProps(2)} className="custom-tab" />
         </Tabs>
       </Box>
       <CustomTabPanel value={value} index={0}>
-       <ExplainCode/>
+        <ExplainCode />
       </CustomTabPanel>
       <CustomTabPanel value={value} index={1}>
-        Item Two
+        <MoodToColor />
       </CustomTabPanel>
       <CustomTabPanel value={value} index={2}>
         Item Three
@@ -67,3 +70,4 @@ export default function BasicTabs() {
     </Box>
   );
 }
+

@@ -14,7 +14,7 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import Snackbar from '@mui/material/Snackbar';
-
+import CloseIcon from '@mui/icons-material/Close'
 export {
   TextField,
   Tabs,
@@ -29,5 +29,6 @@ export {
   MenuItem,
   FormControl,
   Select,
-  Snackbar
+  Snackbar,
+  CloseIcon
 };

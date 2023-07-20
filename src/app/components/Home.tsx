@@ -1,17 +1,33 @@
+
+
 import React from 'react';
 import Header from './Header';
-import { Button, Snackbar, TextField } from '../../helpers/MatImports';
+import { Button, TextField } from '../../helpers/MatImports';
 import useStore from '../../store/store';
-
+import { useNavigate } from 'react-router-dom';
+import SimpleSnackbar from '../widgets/Snackbar';
 
 const Home: React.FC = () => {
+  const navigate = useNavigate();
   const currentToken = useStore((state: any) => state.token);
   const [token, setToken] = React.useState<string>(
     currentToken ? currentToken : '',
   );
+  const [snackBarOpen, setSnackBarOpen] = React.useState<boolean>(false);
   const modifyToken = useStore((state: any) => state.modifyToken);
   const handleButtonClick = () => {
     modifyToken(token); // Update the store with the new token value
+    setSnackBarOpen(true);
+    // navigate("/main");
+  };
+  const onSnackBarClose = (
+    event: React.SyntheticEvent | Event,
+    reason?: string,
+  ) => {
+    console.log(event);
+    setSnackBarOpen(false);
+    navigate("/main");
+    // setSnackBarOpen(event)
   };
   return (
     <React.Fragment>
@@ -35,15 +51,22 @@ const Home: React.FC = () => {
           </div>
         </div>
       </div>
-      <Snackbar
-        open={open}
-        autoHideDuration={6000}
-        onClose={handleClose}
-        message="Note archived"
-        action={action}
+      <SimpleSnackbar
+        snackBarStatus={snackBarOpen}
+        onSnackBarClose={onSnackBarClose}
+        hideDuration={2000}
+        message={'Token Saved'}
       />
     </React.Fragment>
   );
 };
 
 export default Home;
+
+
+
+
+
+
+
+
